@@ -2,16 +2,16 @@ from django.shortcuts import render
 from .models import Pesan
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+import json
 
 
 # Create your views here.
 @csrf_exempt
 def api(request):
-    if(request.method == "GET"):
-        return HttpResponse("There's nothing here")
-
     if(request.method == "POST"):
-        auth = dict(request.headers)['Authorization']
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        auth = body['secret']
         allpesan = Pesan.objects.all()
         result = {
             'isError' : True,
@@ -27,3 +27,4 @@ def api(request):
                 result['img'] = pesan.img
                 break
         return JsonResponse(result)
+    return HttpResponse("There's nothing here")
