@@ -1,0 +1,18 @@
+stages:
+  - deploy
+
+production:
+  stage: deploy
+  image: ruby:latest
+  before_script:
+    - gem install dpl
+    - wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
+  script:
+    - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
+    - heroku run --app $HEROKU_APP_NAME python manage.py makemigrations
+    - heroku run --app $HEROKU_APP_NAME python manage.py migrate
+  only:
+    - master
+  environment:
+    name: production
+    url: $HEROKU_APP_HOST
