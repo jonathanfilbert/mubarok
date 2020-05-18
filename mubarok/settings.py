@@ -24,7 +24,7 @@ PRODUCTION = os.environ.get('DATABASE_URL') != None
 SECRET_KEY = '9a@&7*4#@smg4*ss2w-h2o**h*q(xkz*zpj@e*z@*0h0b!hx+f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
