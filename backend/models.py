@@ -10,3 +10,6 @@ class Pesan(models.Model):
     secret = models.CharField(default=uuid.uuid4(),unique=True,max_length=36)
     story = models.TextField()
     img = models.TextField()
+
+    def __str__(self):
+        return self.nama
